@@ -3,16 +3,18 @@ import * as THREE from "three";
 import * as dat from "dat.gui";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { Sphere } from "three";
+import { DoubleSide, Sphere } from "three";
 
 //gui
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 
 //texture loaders
 
 const loader = new THREE.TextureLoader();
 const saturnTexture = loader.load("./assets/jupiter1.jpg");
 const map = loader.load("./assets/map.jpg");
+const smoke = loader.load("./assets/smoke.png");
+const alpha = loader.load("./assets/alpha.jpg");
 
 //setting the essential
 const scene = new THREE.Scene();
@@ -61,7 +63,6 @@ renderer.render(scene, camera);
 const geometry = new THREE.SphereGeometry(10, 55, 55);
 const material = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const sphere = new THREE.Mesh(geometry, material);
-
 scene.add(sphere);
 
 //stars
@@ -95,7 +96,30 @@ points.position.setZ(-20);
 scene.add(points);
 
 //cloude
+const object = new THREE.Object3D();
+scene.add(object);
+const somkeGeo = new THREE.PlaneBufferGeometry(10, 10);
+const somkeMaterial = new THREE.MeshLambertMaterial({
+  transparent: true,
+  map: smoke,
+  depthTest: false,
+  side: DoubleSide,
+});
 
+let cloudes = [];
+for (let i = -9; i <= 9; i++) {
+  let cloude = new THREE.Mesh(somkeGeo, somkeMaterial);
+  let cloude2 = new THREE.Mesh(somkeGeo, somkeMaterial);
+  let x = Math.sqrt(81 - i * i);
+  console.log(`x:  ${x}  i:  ${i}`);
+  cloude.position.set(x, i, Math.floor(Math.random() * 5));
+  cloude2.position.set(-x, i, Math.floor(Math.random() * 5));
+  cloude.rotation.z = Math.floor(Math.random() * 360);
+  cloude2.rotation.z = Math.floor(Math.random() * 360);
+  cloudes.push(cloude, cloude2);
+  // object.add(cloude);
+  // object.add(cloude2);
+}
 //light
 
 const pointLight = new THREE.PointLight(0xfcfcf7);
@@ -111,12 +135,26 @@ directionalLight.position.set(-10, 11.4, 4.2);
 
 const light = new THREE.AmbientLight(0x404040);
 
+const pointLight3 = new THREE.PointLight(0x56226d);
+pointLight3.intensity = 10;
+pointLight3.position.set(20, 4.8, 4.2);
+
+const pointLight4 = new THREE.PointLight(0x062d89, 5, 600, 1.7);
+pointLight4.position.set(-0.6, -10.7, 4);
+pointLight4.lookAt(camera);
+
+//scene.add(pointLight4, pointLight3);
 scene.add(pointLight, pointLight2, directionalLight, light);
 
-/* gui.add(pointLight.position, 'x').min(-20).max(20).step(0.1)
-gui.add(pointLight.position, 'y').min(-20).max(20).step(0.1)
-gui.add(pointLight.position, 'z').min(-20).max(30).step(0.1)
-gui.add(pointLight, 'intensity')*/
+// gui.add(pointLight3.position, "x").min(-20).max(40).step(0.1);
+// gui.add(pointLight3.position, "y").min(-20).max(40).step(0.1);
+// gui.add(pointLight3.position, "z").min(-20).max(30).step(0.1);
+// gui.add(pointLight3, "intensity");
+
+// gui.add(pointLight4.position, "x").min(-40).max(40).step(0.1);
+// gui.add(pointLight4.position, "y").min(-40).max(40).step(0.1);
+// gui.add(pointLight4.position, "z").min(-40).max(40).step(0.1);
+// gui.add(pointLight4, "intensity");
 
 //helpers
 
@@ -124,7 +162,12 @@ const lightHelper = new THREE.PointLightHelper(pointLight);
 const lightHelper2 = new THREE.PointLightHelper(pointLight2);
 const lightHelper3 = new THREE.PointLightHelper(directionalLight);
 const gridHelper = new THREE.GridHelper(200, 50);
+
+const lightHelper4 = new THREE.PointLightHelper(pointLight3);
+
 //scene.add(lightHelper3,lightHelper,lightHelper2)
+//scene.add(lightHelper4);
+
 const controls = new OrbitControls(camera, renderer.domElement);
 
 const clock = new THREE.Clock();
@@ -135,6 +178,11 @@ function animate() {
   const elapsedTime = clock.getElapsedTime();
 
   sphere.rotation.y = 0.5 * elapsedTime;
+
+  object.rotation.z = 0.5 * elapsedTime;
+  cloudes.forEach((c) => {
+    c.rotation.z += 2 * 0.005;
+  });
 
   renderer.render(scene, camera);
 }
