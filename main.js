@@ -6,7 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { DoubleSide, Sphere, Vector2, Vector3 } from "three";
 
 //gui
-const gui = new dat.GUI();
+//const gui = new dat.GUI();
 
 //texture loaders
 
@@ -64,7 +64,7 @@ const geometry = new THREE.SphereGeometry(10, 55, 55);
 const material = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
-sphere.position.y = -170;
+sphere.position.y = -175;
 sphere.position.x = -12;
 sphere.position.z = -5;
 
@@ -129,11 +129,11 @@ for (let i = -9; i <= 9; i++) {
 
 const pointLight = new THREE.PointLight(0xfcfcf7);
 pointLight.intensity = 0.8;
-pointLight.position.set(8, -165.8, 10.7);
+pointLight.position.set(8, -170.8, 10.7);
 
 const pointLight2 = new THREE.PointLight(0xf2ded8);
 pointLight2.intensity = 0.5;
-pointLight2.position.set(8, 153.7, 10.7);
+pointLight2.position.set(8, -158.7, 10.7);
 
 const directionalLight = new THREE.DirectionalLight(0x404040);
 directionalLight.position.set(-10, 11.4, 4.2);
@@ -150,10 +150,10 @@ pointLight4.lookAt(camera);
 scene.add(pointLight4, pointLight3);
 scene.add(pointLight, pointLight2, directionalLight);
 
-gui.add(object.position, "x").min(-200).max(200).step(0.1);
-gui.add(object.position, "y").min(-200).max(40).step(0.1);
-gui.add(object.position, "z").min(-200).max(40).step(0.1);
-gui.add(pointLight4, "intensity");
+// gui.add(object.position, "x").min(-200).max(200).step(0.1);
+// gui.add(object.position, "y").min(-200).max(40).step(0.1);
+// gui.add(object.position, "z").min(-200).max(40).step(0.1);
+// gui.add(pointLight4, "intensity");
 
 //helpers
 

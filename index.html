@@ -15,27 +15,27 @@
       </div>
       <div class="nav-bar">
         <ul>
-          <li>
+          <li class="hover">
             <img
               style="top: -15px; left: 0px"
               src="./assets/About.svg"
               alt="contact"
               srcset=""
             />
-            <a href="\">About</a>
+            <a href="#about">About</a>
           </li>
-          <li>
+          <li class="hover">
             <img
               style="top: -15px; left: 5px"
               src="./assets/projects.svg"
               alt="projects"
               srcset=""
             />
-            <a href="\">Projects</a>
+            <a href="#skills">Skills</a>
           </li>
-          <li>
+          <li class="hover">
             <img src="./assets/contact.svg" alt="contact" />
-            <a href="\">Contact</a>
+            <a href="#contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -45,7 +45,7 @@
         <h1>Hello, my name is <span>younes</span></h1>
         <h2>welcome to my website</h2>
       </section>
-      <section class="container about">
+      <section id="about" class="container about">
         <h1>ABOUT <span>ME</span></h1>
         <p>
           I'm an electrical engineering, who loves codeing and designing Lorem
@@ -55,9 +55,67 @@
           corporis sequi aliquam!
         </p>
       </section>
+      <section id="skills" class="container projects">
+        <h1>skills</h1>
+      </section>
+      <section id="contact" class="container contact">
+        <h1>CONTACT<span>ME</span></h1>
+        <button class="hover">
+          <a
+            href="youns.zied123@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            >email me</a
+          >
+        </button>
+        <div class="container links">
+          <a
+            href="https://www.instagram.com/youns_zied/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover"
+            ><img src="./assets/instagram.svg" alt="instagram"
+          /></a>
+          <a
+            href="https://github.com/younes369"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover"
+            ><img src="./assets/github.svg" alt="github"
+          /></a>
+          <a
+            href="https://www.linkedin.com/in/younes-zied-29983b214/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover"
+            ><img src="./assets/linkedin.svg" alt="linkedin"
+          /></a>
+        </div>
+        <h3>let's <span>GO</span></h3>
+      </section>
     </main>
 
     <canvas id="bg"></canvas>
     <script type="module" src="/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("a").on("click", function (event) {
+          if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $("html, body").animate(
+              {
+                scrollTop: $(hash).offset().top,
+              },
+              800,
+              function () {
+                window.location.hash = hash;
+              }
+            );
+          }
+        });
+      });
+    </script>
   </body>
 </html>
