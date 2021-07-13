@@ -7,26 +7,56 @@
     <title>Vite App</title>
   </head>
   <body>
-    <header class="container">
+    <header class="container jc">
       <div>
-        <img src="./assets/logo.svg" alt="logo - YZ" />
+        <a href="index.html">
+          <img src="./assets/logo.svg" alt="logo - YZ" />
+        </a>
       </div>
-      <div>
+      <div class="nav-bar">
         <ul>
-          <li>Projects</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li>
+            <img
+              style="top: -15px; left: 0px"
+              src="./assets/About.svg"
+              alt="contact"
+              srcset=""
+            />
+            <a href="\">About</a>
+          </li>
+          <li>
+            <img
+              style="top: -15px; left: 5px"
+              src="./assets/projects.svg"
+              alt="projects"
+              srcset=""
+            />
+            <a href="\">Projects</a>
+          </li>
+          <li>
+            <img src="./assets/contact.svg" alt="contact" />
+            <a href="\">Contact</a>
+          </li>
         </ul>
       </div>
     </header>
     <main>
-      <section class="hero">
-        <div class="hero">
-          <h1>print('Hello, my name is <span>younes</span>');</h1>
-          <h2>welcome to my website</h2>
-        </div>
+      <section class="container hero">
+        <h1>Hello, my name is <span>younes</span></h1>
+        <h2>welcome to my website</h2>
+      </section>
+      <section class="container about">
+        <h1>ABOUT <span>ME</span></h1>
+        <p>
+          I'm an electrical engineering, who loves codeing and designing Lorem
+          ipsum dolor sit amet consectetur adipisicing elit. Deserunt, eligendi?
+          Nemo cupiditate quod reprehenderit. Modi porro ullam odit quos
+          suscipit nostrum? Voluptatem incidunt eum doloribus animi. Amet
+          corporis sequi aliquam!
+        </p>
       </section>
     </main>
+
     <canvas id="bg"></canvas>
     <script type="module" src="/main.js"></script>
   </body>

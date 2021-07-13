@@ -3,10 +3,10 @@ import * as THREE from "three";
 import * as dat from "dat.gui";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { DoubleSide, Sphere } from "three";
+import { DoubleSide, Sphere, Vector2, Vector3 } from "three";
 
 //gui
-// const gui = new dat.GUI();
+const gui = new dat.GUI();
 
 //texture loaders
 
@@ -19,7 +19,7 @@ const alpha = loader.load("./assets/alpha.jpg");
 //setting the essential
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  75,
+  60,
   window.innerWidth / window.innerHeight,
   15,
   1000
@@ -64,6 +64,9 @@ const geometry = new THREE.SphereGeometry(10, 55, 55);
 const material = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
+sphere.position.y = -170;
+sphere.position.x = -12;
+sphere.position.z = -5;
 
 //stars
 
@@ -106,6 +109,8 @@ const somkeMaterial = new THREE.MeshLambertMaterial({
   side: DoubleSide,
 });
 
+object.position.set(10.7, -88, 4.5);
+
 let cloudes = [];
 for (let i = -9; i <= 9; i++) {
   let cloude = new THREE.Mesh(somkeGeo, somkeMaterial);
@@ -117,44 +122,38 @@ for (let i = -9; i <= 9; i++) {
   cloude.rotation.z = Math.floor(Math.random() * 360);
   cloude2.rotation.z = Math.floor(Math.random() * 360);
   cloudes.push(cloude, cloude2);
-  // object.add(cloude);
-  // object.add(cloude2);
+  object.add(cloude);
+  object.add(cloude2);
 }
 //light
 
 const pointLight = new THREE.PointLight(0xfcfcf7);
 pointLight.intensity = 0.8;
-pointLight.position.set(20, 4.2, 16.7);
+pointLight.position.set(8, -165.8, 10.7);
 
 const pointLight2 = new THREE.PointLight(0xf2ded8);
 pointLight2.intensity = 0.5;
-pointLight2.position.set(20, 16.3, 16.7);
+pointLight2.position.set(8, 153.7, 10.7);
 
 const directionalLight = new THREE.DirectionalLight(0x404040);
 directionalLight.position.set(-10, 11.4, 4.2);
 
 const light = new THREE.AmbientLight(0x404040);
 
-const pointLight3 = new THREE.PointLight(0x56226d);
-pointLight3.intensity = 10;
-pointLight3.position.set(20, 4.8, 4.2);
+const pointLight3 = new THREE.PointLight(0x56226d, 10, 50);
+pointLight3.position.set(30.7, -83.6, 8.7);
 
-const pointLight4 = new THREE.PointLight(0x062d89, 5, 600, 1.7);
-pointLight4.position.set(-0.6, -10.7, 4);
+const pointLight4 = new THREE.PointLight(0x062d89, 5, 50, 1.7);
+pointLight4.position.set(10.1, -98.7, 8.5);
 pointLight4.lookAt(camera);
 
-//scene.add(pointLight4, pointLight3);
-scene.add(pointLight, pointLight2, directionalLight, light);
+scene.add(pointLight4, pointLight3);
+scene.add(pointLight, pointLight2, directionalLight);
 
-// gui.add(pointLight3.position, "x").min(-20).max(40).step(0.1);
-// gui.add(pointLight3.position, "y").min(-20).max(40).step(0.1);
-// gui.add(pointLight3.position, "z").min(-20).max(30).step(0.1);
-// gui.add(pointLight3, "intensity");
-
-// gui.add(pointLight4.position, "x").min(-40).max(40).step(0.1);
-// gui.add(pointLight4.position, "y").min(-40).max(40).step(0.1);
-// gui.add(pointLight4.position, "z").min(-40).max(40).step(0.1);
-// gui.add(pointLight4, "intensity");
+gui.add(object.position, "x").min(-200).max(200).step(0.1);
+gui.add(object.position, "y").min(-200).max(40).step(0.1);
+gui.add(object.position, "z").min(-200).max(40).step(0.1);
+gui.add(pointLight4, "intensity");
 
 //helpers
 
@@ -168,10 +167,18 @@ const lightHelper4 = new THREE.PointLightHelper(pointLight3);
 //scene.add(lightHelper3,lightHelper,lightHelper2)
 //scene.add(lightHelper4);
 
-const controls = new OrbitControls(camera, renderer.domElement);
+// const controls = new OrbitControls(camera, renderer.domElement);
+
+function moveScene() {
+  let y = document.body.getBoundingClientRect().top;
+  camera.position.y = y * 0.1;
+  points.position.y = y * 0.1;
+  console.log(y * 0.1);
+}
+
+document.body.onscroll = moveScene;
 
 const clock = new THREE.Clock();
-
 function animate() {
   requestAnimationFrame(animate);
 
