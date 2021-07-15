@@ -116,7 +116,6 @@ for (let i = -9; i <= 9; i++) {
   let cloude = new THREE.Mesh(somkeGeo, somkeMaterial);
   let cloude2 = new THREE.Mesh(somkeGeo, somkeMaterial);
   let x = Math.sqrt(81 - i * i);
-  console.log(`x:  ${x}  i:  ${i}`);
   cloude.position.set(x, i, Math.floor(Math.random() * 5));
   cloude2.position.set(-x, i, Math.floor(Math.random() * 5));
   cloude.rotation.z = Math.floor(Math.random() * 360);
@@ -173,7 +172,6 @@ function moveScene() {
   let y = document.body.getBoundingClientRect().top;
   camera.position.y = y * 0.1;
   points.position.y = y * 0.1;
-  console.log(y * 0.1);
 }
 
 document.body.onscroll = moveScene;
