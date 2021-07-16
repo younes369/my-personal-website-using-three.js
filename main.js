@@ -12,9 +12,7 @@ import { DoubleSide, Sphere, Vector2, Vector3 } from "three";
 
 const loader = new THREE.TextureLoader();
 const saturnTexture = loader.load("./assets/jupiter1.jpg");
-const map = loader.load("./assets/map.jpg");
 const smoke = loader.load("./assets/smoke.png");
-const alpha = loader.load("./assets/alpha.jpg");
 
 //setting the essential
 const scene = new THREE.Scene();
@@ -63,10 +61,10 @@ renderer.render(scene, camera);
 const geometry = new THREE.SphereGeometry(10, 55, 55);
 const material = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const sphere = new THREE.Mesh(geometry, material);
-scene.add(sphere);
 sphere.position.y = -175;
 sphere.position.x = -12;
 sphere.position.z = -5;
+scene.add(sphere);
 
 //stars
 
@@ -90,12 +88,10 @@ const pointmaterial = new THREE.PointsMaterial({
   color: 0x888888,
   sizeAttenuation: false,
   size: 1,
-  map: map,
 });
 
 const points = new THREE.Points(pointsgeometry, pointmaterial);
 points.position.setZ(-20);
-
 scene.add(points);
 
 //cloude
@@ -146,8 +142,7 @@ const pointLight4 = new THREE.PointLight(0x062d89, 5, 50, 1.7);
 pointLight4.position.set(10.1, -98.7, 8.5);
 pointLight4.lookAt(camera);
 
-scene.add(pointLight4, pointLight3);
-scene.add(pointLight, pointLight2, directionalLight);
+scene.add(pointLight, pointLight2, pointLight3, pointLight4, directionalLight);
 
 // gui.add(object.position, "x").min(-200).max(200).step(0.1);
 // gui.add(object.position, "y").min(-200).max(40).step(0.1);
@@ -168,15 +163,19 @@ const lightHelper4 = new THREE.PointLightHelper(pointLight3);
 
 // const controls = new OrbitControls(camera, renderer.domElement);
 
+// scrolling
+const clock = new THREE.Clock();
+let userOnScroll = false;
 function moveScene() {
   let y = document.body.getBoundingClientRect().top;
   camera.position.y = y * 0.1;
   points.position.y = y * 0.1;
+  points.rotation.x = clock.getElapsedTime() * 0.4;
+  userOnScroll = true;
 }
 
 document.body.onscroll = moveScene;
-
-const clock = new THREE.Clock();
+//animation
 function animate() {
   requestAnimationFrame(animate);
 
@@ -188,6 +187,13 @@ function animate() {
   cloudes.forEach((c) => {
     c.rotation.z += 2 * 0.005;
   });
+
+  if (userOnScroll) {
+    points.rotation.x = document.body.getBoundingClientRect().top * -0.001;
+    userOnScroll = false;
+  } else {
+    points.rotation.x += 0.0008;
+  }
 
   renderer.render(scene, camera);
 }
