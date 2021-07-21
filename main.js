@@ -1,12 +1,6 @@
 import "./style.css";
 import * as THREE from "three";
-import * as dat from "dat.gui";
-
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { DoubleSide, Sphere, Vector2, Vector3 } from "three";
-
-//gui
-//const gui = new dat.GUI();
 
 //texture loaders
 
@@ -44,6 +38,19 @@ window.addEventListener("resize", () => {
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  //media
+  console.log(window.innerWidth);
+  if (window.innerWidth < 800) {
+    object.position.set(9, -50, 4.5);
+    pointLight3.position.set(28.7, -53.6, 8.7);
+    pointLight4.position.set(8.1, -58.7, 8.5);
+    sphere.position.set(-8, -110, -5);
+  } else {
+    object.position.set(10.7, -88, 4.5);
+    pointLight3.position.set(30.7, -83.6, 8.7);
+    pointLight4.position.set(10.1, -98.7, 8.5);
+    sphere.position.set(-12, -175, -5);
+  }
 });
 
 const renderer = new THREE.WebGLRenderer({
@@ -94,7 +101,7 @@ const points = new THREE.Points(pointsgeometry, pointmaterial);
 points.position.setZ(-20);
 scene.add(points);
 
-//cloude
+//cloudes
 const object = new THREE.Object3D();
 scene.add(object);
 const somkeGeo = new THREE.PlaneBufferGeometry(10, 10);
@@ -140,28 +147,8 @@ pointLight3.position.set(30.7, -83.6, 8.7);
 
 const pointLight4 = new THREE.PointLight(0x062d89, 5, 50, 1.7);
 pointLight4.position.set(10.1, -98.7, 8.5);
-pointLight4.lookAt(camera);
 
 scene.add(pointLight, pointLight2, pointLight3, pointLight4, directionalLight);
-
-// gui.add(object.position, "x").min(-200).max(200).step(0.1);
-// gui.add(object.position, "y").min(-200).max(40).step(0.1);
-// gui.add(object.position, "z").min(-200).max(40).step(0.1);
-// gui.add(pointLight4, "intensity");
-
-//helpers
-
-const lightHelper = new THREE.PointLightHelper(pointLight);
-const lightHelper2 = new THREE.PointLightHelper(pointLight2);
-const lightHelper3 = new THREE.PointLightHelper(directionalLight);
-const gridHelper = new THREE.GridHelper(200, 50);
-
-const lightHelper4 = new THREE.PointLightHelper(pointLight3);
-
-//scene.add(lightHelper3,lightHelper,lightHelper2)
-//scene.add(lightHelper4);
-
-// const controls = new OrbitControls(camera, renderer.domElement);
 
 // scrolling
 const clock = new THREE.Clock();
@@ -175,6 +162,7 @@ function moveScene() {
 }
 
 document.body.onscroll = moveScene;
+
 //animation
 function animate() {
   requestAnimationFrame(animate);
