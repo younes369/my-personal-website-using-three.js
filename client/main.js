@@ -1,6 +1,10 @@
-import "./style.css";
-import * as THREE from "three";
-import { DoubleSide, Sphere, Vector2, Vector3 } from "three";
+import * as THREE from "https://cdn.skypack.dev/three@0.130.0";
+import {
+  DoubleSide,
+  Sphere,
+  Vector2,
+  Vector3,
+} from "https://cdn.skypack.dev/three@0.130.0";
 
 //texture loaders
 
@@ -39,7 +43,6 @@ window.addEventListener("resize", () => {
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   //media
-  console.log(window.innerWidth);
   if (window.innerWidth < 800) {
     object.position.set(9, -50, 4.5);
     pointLight3.position.set(28.7, -53.6, 8.7);

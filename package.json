@@ -5,12 +5,11 @@
     "build": "vite build",
     "serve": "vite preview"
   },
-  "devDependencies": {
-    "vite": "^2.3.8"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@types/dat.gui": "^0.7.6",
     "dat.gui": "^0.7.7",
+    "express": "^4.17.1",
     "three": "^0.130.0"
   }
 }
