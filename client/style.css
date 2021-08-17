@@ -93,6 +93,7 @@ header {
 }
 
 .nav-bar ul li img {
+  display: none;
   position: absolute;
   top: -30px;
   left: -15px;
@@ -136,19 +137,6 @@ header {
   height: max-content;
   align-items: flex-start;
   justify-content: flex-start;
-}
-
-.about::after {
-  z-index: 4;
-  content: " ";
-  position: absolute;
-  display: block;
-  top: 500px;
-  left: -200px;
-  height: 500px;
-  width: 155vw;
-  transform: rotateZ(25deg);
-  background-image: linear-gradient(to right, black, var(--primary-color));
 }
 
 .about h1 {
