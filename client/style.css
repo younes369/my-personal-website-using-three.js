@@ -5,7 +5,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0.5vw;
 }
 
 ::-webkit-scrollbar-track {
@@ -25,7 +25,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Play", sans-serif;
+  box-sizing: border-box;
 }
 
 *:not(canvas) {
@@ -36,24 +36,31 @@ span {
   color: var(--primary-color);
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+body {
+  font-family: "Play", sans-serif;
+  background-color: black;
+  color: white;
+}
+
 #bg {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-body {
-  background-color: black;
-  background-repeat: no-repeat;
-  color: white;
-}
-
-main {
-  overflow-x: hidden;
-}
-
-header {
-  overflow-x: hidden;
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
@@ -64,14 +71,13 @@ header {
   margin: auto;
 }
 
-.jc {
+.header {
   justify-content: space-between;
-  padding: 2em;
-  height: 11.5vh;
+  padding: 2vh 5vw;
 }
 
-.jc:first-child a img {
-  width: 90px;
+.logo img {
+  height: 50px;
 }
 
 .arrow {
@@ -80,96 +86,113 @@ header {
   cursor: pointer;
 }
 
+.nav-bar {
+  width: 25%;
+}
+
 .nav-bar ul {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav-bar ul li {
-  list-style: none;
-  margin-left: 5vw;
-  border-radius: 10px;
-  background-color: var(--primary-color);
-  position: relative;
-}
-
-.nav-bar ul li img {
-  display: none;
-  position: absolute;
-  top: -30px;
-  left: -15px;
-}
-
-.nav-bar ul li a {
-  display: block;
-  padding: 0.5em 2em;
-  text-decoration: none;
-  color: white;
+main {
+  flex-direction: column;
 }
 
 .hero {
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   flex-direction: column;
-  line-height: 10rem;
-  margin-top: 20vh;
-  margin-bottom: 40vh;
-  text-align: center;
+  padding-top: 20vh;
 }
 
 .hero h1 {
-  font-size: 7rem;
+  font-size: max(min(7vw, 100px), 1rem);
+  line-height: 30vh;
 }
 
 .hero h2 {
-  font-size: 2.5rem;
+  font-size: max(min(5vw, 80px), 1rem);
   opacity: 0;
   transform: translateY(100%);
 }
 
 .about {
   width: 100%;
-  margin-bottom: 400px;
-  flex-direction: column;
-  position: relative;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  align-items: flex-start;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: left;
+  gap: min(4vw, 50px);
+  margin-bottom: 50vh;
 }
 
-.about h1 {
-  z-index: 5;
-  text-align: left;
-  width: 50rem;
-  font-weight: 400;
-  font-size: 15rem;
+#ABOUT {
+  fill: white;
+}
+
+#me {
+  fill: var(--primary-color);
+}
+
+.svg1 {
+  width: auto;
+  max-width: 100%;
+  height: min(35vh, 20vw);
+  grid-column: span 3/auto;
   transform: translateX(-150%);
 }
 
-.about p {
-  z-index: 6;
-  font-size: 1.9rem;
-  margin-left: 20vw;
-  margin-bottom: 30vh;
+.svg2 {
+  width: min(35vh, 20vw);
+  height: auto;
+  max-height: 60vh;
+  max-width: 100%;
+  grid-column: span 1/auto;
+  transform: translateX(-150%);
+}
+
+.about-me {
   opacity: 0;
+  grid-column: span 2/auto;
+}
+
+.about h2 {
+  grid-column: span 2/auto;
+  font-size: max(min(4vw, 60px), 1rem);
+  margin-bottom: 3vw;
+}
+
+.about p {
+  grid-column: span 2/auto;
+  font-size: max(min(1vw, 20px), 0.8rem);
+  margin-bottom: 4vw;
+}
+
+.skills h2 {
+  font-size: max(min(7vw, 100px), 1rem);
 }
 
 .skills {
-  height: 100vh;
-  align-items: center;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 50vh;
 }
 
-.skills h1 {
-  z-index: 99;
-  font-size: 10rem;
+.skills div {
+  justify-content: space-between;
+  width: 90%;
 }
 
-#canvas {
-  z-index: 4;
-  margin-bottom: 400px;
+.skills div ul {
+  flex-direction: column;
+  font-size: max(min(5vw, 80px), 1rem);
 }
 
 .contact {
@@ -180,11 +203,11 @@ header {
 
 .contact h1,
 .contact h3 {
-  font-size: 10rem;
+  font-size: max(min(15vw, 400px), 1rem);
   font-weight: 400;
 }
 
-.contact button {
+.email {
   background-color: var(--primary-color);
   border: none;
   width: 20rem;
@@ -192,19 +215,20 @@ header {
   border-radius: 10pc;
 }
 
-.contact button a {
-  text-decoration: none;
+.email a {
   color: #ffffff;
   font-size: 3rem;
 }
 
 .links {
+  width: 60%;
   margin-top: 5em;
+  justify-content: space-between;
 }
 
 .links a img {
-  width: 8rem;
-  margin-left: 5vw;
+  width: 15vw;
+  max-width: 350px;
 }
 
 /* hover */
@@ -306,37 +330,37 @@ header {
 }
 .animation1 {
   -webkit-animation: back-to-top 700ms ease-in;
-          animation: back-to-top 700ms ease-in;
+  animation: back-to-top 700ms ease-in;
 }
 
 .animation2 {
   -webkit-animation: down-to-up 500ms ease-out 750ms forwards;
-          animation: down-to-up 500ms ease-out 750ms forwards;
+  animation: down-to-up 500ms ease-out 750ms forwards;
 }
 
 .animation3 {
   -webkit-animation: left-to-right 700ms ease-in forwards;
-          animation: left-to-right 700ms ease-in forwards;
+  animation: left-to-right 700ms ease-in forwards;
 }
 
 .animation4 {
   -webkit-animation: rotate 300ms ease-in-out 100ms forwards;
-          animation: rotate 300ms ease-in-out 100ms forwards;
+  animation: rotate 300ms ease-in-out 100ms forwards;
 }
 
 .animation5 {
   -webkit-animation: back-to-top 700ms ease-in, rotate2 300ms ease-in-out 100ms forwards;
-          animation: back-to-top 700ms ease-in, rotate2 300ms ease-in-out 100ms forwards;
+  animation: back-to-top 700ms ease-in, rotate2 300ms ease-in-out 100ms forwards;
 }
 
 .animation6 {
   -webkit-animation: slide-down 300ms ease-in-out 100ms forwards;
-          animation: slide-down 300ms ease-in-out 100ms forwards;
+  animation: slide-down 300ms ease-in-out 100ms forwards;
 }
 
 /*media*/
 @media (max-width: 800px) {
-  .jc {
+  .header {
     flex-direction: column;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -358,73 +382,15 @@ header {
     background-color: var(--dark-color);
     width: 100vw;
     margin: 10px;
-    padding: 10px;
   }
 
   .nav-bar ul li {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.45);
-    margin: 15px;
-    width: 80%;
-    height: 35px;
+    padding: 15px;
+    border-bottom: solid 0.4px white;
+    border-top: solid 0.4px white;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .hero h1 {
-    font-size: 1.5rem;
-    line-height: 1rem;
-  }
-
-  .hero h2 {
-    font-size: 1.3rem;
-  }
-
-  .about::after {
-    top: 100px;
-    left: -100px;
-    height: 325px;
-    width: 150vw;
-  }
-
-  .about h1 {
-    margin-left: 10vw;
-    font-size: 5rem;
-    width: 24rem;
-  }
-
-  .about p {
-    font-size: 1rem;
-    line-height: 1.2rem;
-  }
-
-  .skills h1 {
-    font-size: 5rem;
-  }
-
-  .contact h1 {
-    font-size: 3rem;
-  }
-
-  .contact button {
-    width: 12rem;
-    height: 4rem;
-  }
-
-  .contact button a {
-    font-size: 1.7rem;
-  }
-
-  .links {
-    margin-top: 2em;
-  }
-
-  .links a img {
-    width: 6rem;
-  }
-
-  .contact h3 {
-    margin-top: 1rem;
-    font-size: 4rem;
   }
 }/*# sourceMappingURL=style.css.map */
